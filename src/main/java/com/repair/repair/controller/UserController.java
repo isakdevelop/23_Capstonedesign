@@ -1,5 +1,8 @@
 package com.repair.repair.controller;
 
+import com.repair.repair.dto.request.UserSignupRequestDto;
+import com.repair.repair.dto.response.UserSignupResponseDto;
+import com.repair.repair.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,5 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
+    private final UserService userService;
 
+    @PostMapping("/signup")
+    public UserSignupResponseDto signUp(@RequestBody UserSignupRequestDto userSignupRequestDto) {
+        return userService.signUp(userSignupRequestDto);
+    }
 }
