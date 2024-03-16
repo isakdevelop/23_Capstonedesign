@@ -1,8 +1,10 @@
 package com.repair.repair.controller;
 
 import com.repair.repair.dto.request.UserLoginRequestDto;
+import com.repair.repair.dto.request.UserPasswordChangeRequestDto;
 import com.repair.repair.dto.request.UserSignupRequestDto;
 import com.repair.repair.dto.response.UserLoginResponseDto;
+import com.repair.repair.dto.response.UserPasswordChangeResponseDto;
 import com.repair.repair.dto.response.UserSignupResponseDto;
 import com.repair.repair.service.UserService;
 import java.util.Optional;
@@ -23,5 +25,10 @@ public class UserController {
     @PostMapping("/login")
     public Optional<UserLoginResponseDto> login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
         return userService.login(userLoginRequestDto);
+    }
+
+    @PostMapping("passwordchange")
+    public Optional<UserPasswordChangeResponseDto> passwordChange(@RequestBody UserPasswordChangeRequestDto userPasswordChangeRequestDto) {
+        return userService.passwordUpdate(userPasswordChangeRequestDto);
     }
 }
