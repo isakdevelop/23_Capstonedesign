@@ -3,9 +3,11 @@ package com.repair.repair.service;
 import com.repair.repair.dto.request.UserLoginRequestDto;
 import com.repair.repair.dto.request.UserPasswordChangeRequestDto;
 import com.repair.repair.dto.request.UserSignupRequestDto;
+import com.repair.repair.dto.request.UserUpdateRequestDto;
 import com.repair.repair.dto.response.UserLoginResponseDto;
 import com.repair.repair.dto.response.UserPasswordChangeResponseDto;
 import com.repair.repair.dto.response.UserSignupResponseDto;
+import com.repair.repair.dto.response.UserUpdateResponseDto;
 import com.repair.repair.model.User;
 import com.repair.repair.repository.UserRepository;
 import java.util.Optional;
@@ -71,6 +73,26 @@ public class UserServiceImpl implements UserService {
             return Optional.of(new UserPasswordChangeResponseDto(1, "비밀번호 변경이 완료되었습니다."));
         } else {
             return Optional.of(new UserPasswordChangeResponseDto(0, "비밀번호가 일치하지 않습니다."));
+        }
+    }
+
+    @Transactional
+    @Override
+    public Optional<UserUpdateResponseDto> updateUser(UserUpdateRequestDto userUpdateRequestDto) {
+        Optional<User> optionalUser = userRepository.findById(userUpdateRequestDto.getId());
+
+        if (optionalUser.isEmpty()) {
+            return Optional.of(new UserUpdateResponseDto(0, "아이디에 해당하는 유저가 존재하지 않습니다."));
+        } else {
+            User findUser = optionalUser.get();
+
+            if (passwordEncoder.matches(userUpdateRequestDto.getPassword(), findUser.getPassword())) {
+                findUser.updateUser(userUpdateRequestDto.getName());
+
+                return Optional.of(new UserUpdateResponseDto(1, "회원 정보 수정이 완료되었습니다."));
+            } else {
+                return Optional.of(new UserUpdateResponseDto(0, "비밀번호가 일치하지 않습니다."));
+            }
         }
     }
 }

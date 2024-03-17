@@ -3,9 +3,11 @@ package com.repair.repair.controller;
 import com.repair.repair.dto.request.UserLoginRequestDto;
 import com.repair.repair.dto.request.UserPasswordChangeRequestDto;
 import com.repair.repair.dto.request.UserSignupRequestDto;
+import com.repair.repair.dto.request.UserUpdateRequestDto;
 import com.repair.repair.dto.response.UserLoginResponseDto;
 import com.repair.repair.dto.response.UserPasswordChangeResponseDto;
 import com.repair.repair.dto.response.UserSignupResponseDto;
+import com.repair.repair.dto.response.UserUpdateResponseDto;
 import com.repair.repair.service.UserService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -30,5 +32,10 @@ public class UserController {
     @PostMapping("passwordchange")
     public Optional<UserPasswordChangeResponseDto> passwordChange(@RequestBody UserPasswordChangeRequestDto userPasswordChangeRequestDto) {
         return userService.passwordUpdate(userPasswordChangeRequestDto);
+    }
+
+    @PostMapping("/update")
+    public Optional<UserUpdateResponseDto> update(@RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+        return userService.updateUser(userUpdateRequestDto);
     }
 }
