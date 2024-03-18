@@ -1,9 +1,11 @@
 package com.repair.repair.controller;
 
+import com.repair.repair.dto.request.UserDeleteRequestDto;
 import com.repair.repair.dto.request.UserLoginRequestDto;
 import com.repair.repair.dto.request.UserPasswordChangeRequestDto;
 import com.repair.repair.dto.request.UserSignupRequestDto;
 import com.repair.repair.dto.request.UserUpdateRequestDto;
+import com.repair.repair.dto.response.UserDeleteResponseDto;
 import com.repair.repair.dto.response.UserLoginResponseDto;
 import com.repair.repair.dto.response.UserPasswordChangeResponseDto;
 import com.repair.repair.dto.response.UserSignupResponseDto;
@@ -11,6 +13,7 @@ import com.repair.repair.dto.response.UserUpdateResponseDto;
 import com.repair.repair.service.UserService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,5 +40,10 @@ public class UserController {
     @PostMapping("/update")
     public Optional<UserUpdateResponseDto> update(@RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         return userService.updateUser(userUpdateRequestDto);
+    }
+
+    @DeleteMapping("/delete")
+    public Optional<UserDeleteResponseDto> userDelete(@RequestBody UserDeleteRequestDto userDeleteRequestDto) {
+        return userService.deleteUser(userDeleteRequestDto);
     }
 }

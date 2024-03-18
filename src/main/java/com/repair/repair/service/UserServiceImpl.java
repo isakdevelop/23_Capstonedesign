@@ -1,9 +1,11 @@
 package com.repair.repair.service;
 
+import com.repair.repair.dto.request.UserDeleteRequestDto;
 import com.repair.repair.dto.request.UserLoginRequestDto;
 import com.repair.repair.dto.request.UserPasswordChangeRequestDto;
 import com.repair.repair.dto.request.UserSignupRequestDto;
 import com.repair.repair.dto.request.UserUpdateRequestDto;
+import com.repair.repair.dto.response.UserDeleteResponseDto;
 import com.repair.repair.dto.response.UserLoginResponseDto;
 import com.repair.repair.dto.response.UserPasswordChangeResponseDto;
 import com.repair.repair.dto.response.UserSignupResponseDto;
@@ -34,7 +36,7 @@ public class UserServiceImpl implements UserService {
                 .name(userSignupRequestDto.getName())
                 .build();
 
-        if (userRepository.findByEmail(userSignupRequestDto.getEmail()).isEmpty())  {
+        if (userRepository.findByEmail(userSignupRequestDto.getEmail()).isEmpty()) {
             userRepository.save(user);
             return new UserSignupResponseDto(user.getId(), user.getEmail(), user.getName());
         } else {
@@ -50,8 +52,9 @@ public class UserServiceImpl implements UserService {
             return Optional.empty();
         }
 
-        if (passwordEncoder.matches(userLoginRequestDto.getPassword(), findUser.get().getPassword()))   {
-            return Optional.of(new UserLoginResponseDto(findUser.get().getId(), findUser.get().getEmail(), findUser.get().getName(),
+        if (passwordEncoder.matches(userLoginRequestDto.getPassword(), findUser.get().getPassword())) {
+            return Optional.of(new UserLoginResponseDto(findUser.get().getId(), findUser.get().getEmail(),
+                    findUser.get().getName(),
                     findUser.get().getType()));
         } else {
             return Optional.empty();
@@ -60,10 +63,11 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public Optional<UserPasswordChangeResponseDto> passwordUpdate(UserPasswordChangeRequestDto userPasswordChangeRequestDto) {
+    public Optional<UserPasswordChangeResponseDto> passwordUpdate(
+            UserPasswordChangeRequestDto userPasswordChangeRequestDto) {
         Optional<User> optionalUser = userRepository.findById(userPasswordChangeRequestDto.getId());
 
-        if(optionalUser.isEmpty()) {
+        if (optionalUser.isEmpty()) {
             return Optional.of(new UserPasswordChangeResponseDto(0, "존재하지 않는 회원입니다."));
         }
         User findUSer = optionalUser.get();
@@ -93,6 +97,25 @@ public class UserServiceImpl implements UserService {
             } else {
                 return Optional.of(new UserUpdateResponseDto(0, "비밀번호가 일치하지 않습니다."));
             }
+        }
+    }
+
+    @Transactional
+    @Override
+    public Optional<UserDeleteResponseDto> deleteUser(UserDeleteRequestDto userDeleteRequestDto) {
+        Optional<User> optionalUser = userRepository.findById(userDeleteRequestDto.getId());
+
+        if (optionalUser.isEmpty()) {
+            return Optional.of(new UserDeleteResponseDto(0, "회원 탈퇴에 실패하였습니다."));
+        }
+
+        User findUser = optionalUser.get();
+
+        if (passwordEncoder.matches(userDeleteRequestDto.getPassword(), findUser.getPassword())) {
+            userRepository.deleteById(findUser.getId());
+            return Optional.of(new UserDeleteResponseDto(1, "회원 탈퇴가 정상 진행 되었습니다."));
+        } else {
+            return Optional.of(new UserDeleteResponseDto(0, "회원 탈퇴에 실패하였습니다."));
         }
     }
 }
