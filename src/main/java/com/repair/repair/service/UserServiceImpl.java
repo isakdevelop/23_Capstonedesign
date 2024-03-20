@@ -1,12 +1,15 @@
 package com.repair.repair.service;
 
+import com.repair.repair.common.RandomPasswordGenerator;
 import com.repair.repair.dto.request.UserDeleteRequestDto;
 import com.repair.repair.dto.request.UserLoginRequestDto;
+import com.repair.repair.dto.request.UserMailRequestDto;
 import com.repair.repair.dto.request.UserPasswordChangeRequestDto;
 import com.repair.repair.dto.request.UserSignupRequestDto;
 import com.repair.repair.dto.request.UserUpdateRequestDto;
 import com.repair.repair.dto.response.UserDeleteResponseDto;
 import com.repair.repair.dto.response.UserLoginResponseDto;
+import com.repair.repair.dto.response.UserMailResponseDto;
 import com.repair.repair.dto.response.UserPasswordChangeResponseDto;
 import com.repair.repair.dto.response.UserSignupResponseDto;
 import com.repair.repair.dto.response.UserUpdateResponseDto;
@@ -15,6 +18,8 @@ import com.repair.repair.repository.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JavaMailSender javaMailSender;
+    private final SimpleMailMessage simpleMailMessage;
 
     @Transactional
     @Override
@@ -98,6 +105,29 @@ public class UserServiceImpl implements UserService {
                 return Optional.of(new UserUpdateResponseDto(0, "비밀번호가 일치하지 않습니다."));
             }
         }
+    }
+
+    @Transactional
+    @Override
+    public Optional<UserMailResponseDto> sendMail(UserMailRequestDto userMailRequestDto) {
+        Optional<User> optionalUser = userRepository.findByEmail(userMailRequestDto.getEmail());
+
+        if (optionalUser.isEmpty()) {
+            return Optional.of(new UserMailResponseDto(0, "존재하지 않는 이메일입니다."));
+        }
+
+        String password = RandomPasswordGenerator.generateRandomPassword();
+
+        simpleMailMessage.setTo(userMailRequestDto.getEmail());
+        simpleMailMessage.setSubject("[리페어] 임시 비밀번호 발급 안내.");
+        simpleMailMessage.setFrom("daishi7462@naver.com");
+        simpleMailMessage.setText("회원님의 임시 비밀번호는 " + password + " 입니다.");
+
+        User findUser = optionalUser.get();
+        findUser.changePassword(passwordEncoder.encode(password));
+
+        javaMailSender.send(simpleMailMessage);
+        return Optional.of(new UserMailResponseDto(1, "메일 발송이 완료되었습니다."));
     }
 
     @Transactional
