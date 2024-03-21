@@ -24,9 +24,8 @@
 - `PWA`
 - `VS code`
 ##### BE
-- `PHP`
-- `Spring Boot`
-- `MariaDB`
+- `PHP -> Spring Boot`
+- `MariaDB -> MySQL`
 - `VS code`
 ##### DL & BE
 - `PyTorch`
