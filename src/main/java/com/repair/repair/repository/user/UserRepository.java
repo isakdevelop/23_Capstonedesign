@@ -1,7 +1,6 @@
-package com.repair.repair.repository;
+package com.repair.repair.repository.user;
 
-import com.repair.repair.model.User;
-import java.util.Collection;
+import com.repair.repair.domain.User;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

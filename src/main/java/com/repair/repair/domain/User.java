@@ -1,4 +1,4 @@
-package com.repair.repair.model;
+package com.repair.repair.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +10,7 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 
-import com.repair.repair.model.value.Domain;
+import com.repair.repair.domain.value.Domain;
 
 import org.springframework.data.domain.Persistable;
 

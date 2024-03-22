@@ -1,13 +1,13 @@
-package com.repair.repair.dto.response;
+package com.repair.repair.dto.response.user;
 
 import lombok.Getter;
 
 @Getter
-public class UserUpdateResponseDto {
+public class UserMailResponseDto {
     private int state;
     private String message;
 
-    public UserUpdateResponseDto(int state, String message) {
+    public UserMailResponseDto(int state, String message) {
         this.state = state;
         this.message = message;
     }

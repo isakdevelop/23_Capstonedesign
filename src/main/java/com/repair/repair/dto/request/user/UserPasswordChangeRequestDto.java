@@ -1,4 +1,4 @@
-package com.repair.repair.dto.request;
+package com.repair.repair.dto.request.user;
 
 import lombok.Getter;
 
