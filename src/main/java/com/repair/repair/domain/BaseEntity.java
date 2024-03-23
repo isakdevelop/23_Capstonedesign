@@ -29,7 +29,7 @@ public class BaseEntity {
     @LastModifiedDate
     private LocalDate updateAt;
 
-    private BaseEntity()    {
+    BaseEntity()    {
 
     }
 
