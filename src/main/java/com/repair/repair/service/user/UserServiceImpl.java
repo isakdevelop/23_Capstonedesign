@@ -77,10 +77,10 @@ public class UserServiceImpl implements UserService {
         if (optionalUser.isEmpty()) {
             return Optional.of(new UserPasswordChangeResponseDto(0, "존재하지 않는 회원입니다."));
         }
-        User findUSer = optionalUser.get();
+        User findUser = optionalUser.get();
 
-        if (passwordEncoder.matches(userPasswordChangeRequestDto.getPassword(), findUSer.getPassword())) {
-            findUSer.changePassword(passwordEncoder.encode(userPasswordChangeRequestDto.getNewPassword()));
+        if (passwordEncoder.matches(userPasswordChangeRequestDto.getPassword(), findUser.getPassword())) {
+            findUser.changePassword(passwordEncoder.encode(userPasswordChangeRequestDto.getNewPassword()));
             return Optional.of(new UserPasswordChangeResponseDto(1, "비밀번호 변경이 완료되었습니다."));
         } else {
             return Optional.of(new UserPasswordChangeResponseDto(0, "비밀번호가 일치하지 않습니다."));
