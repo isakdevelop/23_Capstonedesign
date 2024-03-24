@@ -1,21 +1,20 @@
 package com.repair.repair.controller;
 
-import com.repair.repair.dto.request.UserDeleteRequestDto;
-import com.repair.repair.dto.request.UserLoginRequestDto;
-import com.repair.repair.dto.request.UserMailRequestDto;
-import com.repair.repair.dto.request.UserPasswordChangeRequestDto;
-import com.repair.repair.dto.request.UserSignupRequestDto;
-import com.repair.repair.dto.request.UserUpdateRequestDto;
-import com.repair.repair.dto.response.UserDeleteResponseDto;
-import com.repair.repair.dto.response.UserLoginResponseDto;
-import com.repair.repair.dto.response.UserMailResponseDto;
-import com.repair.repair.dto.response.UserPasswordChangeResponseDto;
-import com.repair.repair.dto.response.UserSignupResponseDto;
-import com.repair.repair.dto.response.UserUpdateResponseDto;
-import com.repair.repair.service.UserService;
+import com.repair.repair.dto.request.user.UserDeleteRequestDto;
+import com.repair.repair.dto.request.user.UserLoginRequestDto;
+import com.repair.repair.dto.request.user.UserMailRequestDto;
+import com.repair.repair.dto.request.user.UserPasswordChangeRequestDto;
+import com.repair.repair.dto.request.user.UserSignupRequestDto;
+import com.repair.repair.dto.request.user.UserUpdateRequestDto;
+import com.repair.repair.dto.response.user.UserDeleteResponseDto;
+import com.repair.repair.dto.response.user.UserLoginResponseDto;
+import com.repair.repair.dto.response.user.UserMailResponseDto;
+import com.repair.repair.dto.response.user.UserPasswordChangeResponseDto;
+import com.repair.repair.dto.response.user.UserSignupResponseDto;
+import com.repair.repair.dto.response.user.UserUpdateResponseDto;
+import com.repair.repair.service.user.UserService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
