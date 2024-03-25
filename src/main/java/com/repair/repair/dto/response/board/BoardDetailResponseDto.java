@@ -4,12 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class BoardDetailResponseDto {
-    private Long num;
     private String writer;
     private String content;
 
-    public BoardDetailResponseDto(Long num, String writer, String content) {
-        this.num = num;
+    public BoardDetailResponseDto(String writer, String content) {
         this.writer = writer;
         this.content = content;
     }

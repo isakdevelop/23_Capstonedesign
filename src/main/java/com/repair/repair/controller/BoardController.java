@@ -27,7 +27,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public Page<BoardListResponseDto> list(@PageableDefault(size = 10, sort = "num", direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<BoardListResponseDto> list(@PageableDefault(size = 10, sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
         return boardService.list(pageable);
     }
     @PostMapping("/write")

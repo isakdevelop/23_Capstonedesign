@@ -7,7 +7,6 @@ import com.repair.repair.dto.response.board.BoardDetailResponseDto;
 import com.repair.repair.dto.response.board.BoardListResponseDto;
 import com.repair.repair.dto.response.board.BoardWriteResponseDto;
 import com.repair.repair.domain.Board;
-import com.repair.repair.dto.response.user.UserLoginResponseDto;
 import com.repair.repair.repository.board.BoardRepository;
 import com.repair.repair.repository.user.UserRepository;
 import java.util.Optional;
@@ -45,13 +44,13 @@ public class BoardServiceImpl implements BoardService{
     @Transactional
     @Override
     public Optional<BoardDetailResponseDto> detail(BoardDetailRequestDto boardDetailRequestDto) {
-        Optional<Board> findUser = boardRepository.findByNum(Long.valueOf(boardDetailRequestDto.getNum()));
+        Optional<Board> findUser = boardRepository.findById(boardDetailRequestDto.getId());
 
         if (findUser.isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.of(new BoardDetailResponseDto(findUser.get().getNum(), findUser.get().getTitle(),
+        return Optional.of(new BoardDetailResponseDto(findUser.get().getTitle(),
                 findUser.get().getContent()));
     }
 

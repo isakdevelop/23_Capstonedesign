@@ -18,9 +18,6 @@ import org.springframework.data.domain.Persistable;
 @Getter
 @Table(name = "board")
 public class Board extends BaseEntity implements Persistable<String> {
-    @Column(name = "num", unique = true, updatable = false)
-    private Long num;
-
     @Column(name = "title")
     private String title;
 

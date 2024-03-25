@@ -11,10 +11,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface BoardRepository extends JpaRepository<Board, String> {
-    @Query("select b.num as num, b.title as title, u.name as userName from Board b join b.user u")
+    @Query("select b.createAt as createAt, b.title as title, u.name as userName from Board b join b.user u")
     Page<BoardListResponseDto> findAllBoardList(Pageable pageable);
-    Optional<Board> findByNum(Long num);
 
-    @Query("select b.num as num, b.title as title, u.name as userName from Board b join b.user u where b.title like %:keyword%")
+    @Query("select b.createAt as createAt, b.title as title, u.name as userName from Board b join b.user u where b.title like %:keyword%")
     Page<BoardListResponseDto> findByTitleContaining(@Param("keyword") String keyword, Pageable pageable);
 }

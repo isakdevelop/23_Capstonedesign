@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class BoardDetailRequestDto {
-    private int num;
+    private String id;
 }
