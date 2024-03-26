@@ -1,10 +1,9 @@
-package com.repair.repair.controller;
+package com.repair.api.controller;
 
-import com.repair.repair.dto.request.comment.CommentWriteRequestDto;
-import com.repair.repair.dto.response.board.BoardListResponseDto;
-import com.repair.repair.dto.response.comment.CommentListResponseDto;
-import com.repair.repair.dto.response.comment.CommentWriteResponseDto;
-import com.repair.repair.service.comment.CommentService;
+import com.repair.api.dto.request.comment.CommentWriteRequestDto;
+import com.repair.api.dto.response.comment.CommentListResponseDto;
+import com.repair.api.dto.response.comment.CommentWriteResponseDto;
+import com.repair.api.service.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +22,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @GetMapping("/list")
-    public Page<CommentListResponseDto> list(@PageableDefault(size = 10, sort = "num", direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<CommentListResponseDto> list(@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         return commentService.list(pageable);
     }
 

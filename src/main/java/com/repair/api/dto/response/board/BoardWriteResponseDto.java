@@ -1,4 +1,4 @@
-package com.repair.repair.dto.response.board;
+package com.repair.api.dto.response.board;
 
 import lombok.Getter;
 

@@ -1,12 +1,12 @@
-package com.repair.repair.controller;
+package com.repair.api.controller;
 
-import com.repair.repair.dto.request.board.BoardDetailRequestDto;
-import com.repair.repair.dto.request.board.BoardSelectRequestDto;
-import com.repair.repair.dto.request.board.BoardWriteRequestDto;
-import com.repair.repair.dto.response.board.BoardDetailResponseDto;
-import com.repair.repair.dto.response.board.BoardListResponseDto;
-import com.repair.repair.dto.response.board.BoardWriteResponseDto;
-import com.repair.repair.service.board.BoardService;
+import com.repair.api.dto.request.board.BoardDetailRequestDto;
+import com.repair.api.dto.request.board.BoardSelectRequestDto;
+import com.repair.api.dto.request.board.BoardWriteRequestDto;
+import com.repair.api.dto.response.board.BoardDetailResponseDto;
+import com.repair.api.dto.response.board.BoardListResponseDto;
+import com.repair.api.dto.response.board.BoardWriteResponseDto;
+import com.repair.api.service.board.BoardService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
