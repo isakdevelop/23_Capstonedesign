@@ -26,7 +26,7 @@
 ##### BE
 - `PHP -> Spring Boot`
 - `MariaDB -> MySQL`
-- `VS code`
+- `Docker`
 ##### DL & BE
 - `PyTorch`
 - `Flask`
