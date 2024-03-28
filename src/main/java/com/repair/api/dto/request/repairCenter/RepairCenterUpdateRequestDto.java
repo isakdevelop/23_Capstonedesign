@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class RepairCenterUpdateRequestDto {
-    private String repairCenterId;
-    private String userId;
+    private Long repairCenterId;
+    private Long userId;
     private String name;
     private String address;
     private String tell;

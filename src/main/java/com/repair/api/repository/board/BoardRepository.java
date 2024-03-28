@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface BoardRepository extends JpaRepository<Board, String> {
+public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("select new com.repair.api.dto.response.board.BoardListResponseDto(" +
             "b.createAt, b.title, u.name) " +
             "from Board b join b.user u")

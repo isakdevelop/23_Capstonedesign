@@ -1,6 +1,6 @@
-package com.repair.api.controller;
+package com.repair.api.exception;
 
-import com.repair.api.domain.RepairExceptionModel;
+import com.repair.api.exception.RepairExceptionModel;
 import com.repair.api.exception.RepairException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

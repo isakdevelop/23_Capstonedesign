@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, String> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query("select new com.repair.api.dto.response.comment.CommentListResponseDto(" +
             "c.createAt, c.id, c.comment, u.name) " +
             "from Comment c join c.user u")

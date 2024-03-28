@@ -1,4 +1,4 @@
-package com.repair.api.domain;
+package com.repair.api.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class RepairExceptionModel {
-    private int status;
-    private String message;
+    private int errorCode;
+    private String errorMessage;
 }

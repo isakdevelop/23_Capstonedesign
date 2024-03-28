@@ -10,14 +10,20 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
 
 @Entity
 @Table(name = "comments")
 @Getter
-public class Comment extends BaseEntity implements Persistable<String> {
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+public class Comment extends BaseEntity {
     @Column(name = "comment")
     private String comment;
 
@@ -36,27 +42,8 @@ public class Comment extends BaseEntity implements Persistable<String> {
     @JoinColumn(name = "parentComment_id")
     private Comment parentComment;
 
-
-    protected Comment() {
-        super(Domain.COMMENT);
-    }
-
-    @Builder
-    public Comment(String comment, User user, Board board, Comment parentComment) {
-        this();
-        this.comment = comment;
-        this.user = user;
-        this.board = board;
-        this.parentComment = parentComment;
-    }
-
     public void modify(String comment) {
         this.comment = comment;
     }
 
-
-    @Override
-    public boolean isNew() {
-        return getCreateAt() == null;
-    }
 }

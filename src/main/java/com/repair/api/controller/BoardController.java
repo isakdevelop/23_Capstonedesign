@@ -1,6 +1,8 @@
 package com.repair.api.controller;
 
+import com.repair.api.common.ResultResponseDto;
 import com.repair.api.dto.request.board.BoardDetailRequestDto;
+import com.repair.api.dto.request.board.BoardModifyRequestDto;
 import com.repair.api.dto.request.board.BoardSelectRequestDto;
 import com.repair.api.dto.request.board.BoardWriteRequestDto;
 import com.repair.api.dto.response.board.BoardDetailResponseDto;
@@ -45,4 +47,8 @@ public class BoardController {
         return boardService.detail(boardDetailRequestDto);
     }
 
+    @PostMapping("/modify")
+    public Optional<ResultResponseDto> modify(@RequestBody BoardModifyRequestDto boardModifyRequestDto) {
+        return boardService.modify(boardModifyRequestDto);
+    }
 }

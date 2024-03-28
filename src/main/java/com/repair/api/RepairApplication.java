@@ -10,5 +10,4 @@ public class RepairApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RepairApplication.class, args);
 	}
-
 }

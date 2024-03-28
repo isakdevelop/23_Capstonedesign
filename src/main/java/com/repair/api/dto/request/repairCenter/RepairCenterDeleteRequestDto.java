@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class RepairCenterDeleteRequestDto {
-    private String repairCenterId;
-    private String userId;
+    private Long repairCenterId;
+    private Long userId;
 }

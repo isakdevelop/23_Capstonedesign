@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public class CommentWriteRequestDto {
-    private String userId;
-    private String boardId;
-    private String commentId;
+    private Long userId;
+    private Long boardId;
+    private Long commentId;
     private String content;
     private String name;
 }

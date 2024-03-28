@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class BoardWriteResponseDto {
-    private String id;
+    private Long id;
     private String title;
 
-    public BoardWriteResponseDto(String id, String title) {
+    public BoardWriteResponseDto(Long id, String title) {
         this.id = id;
         this.title = title;
     }

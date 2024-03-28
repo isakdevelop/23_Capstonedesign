@@ -1,6 +1,8 @@
 package com.repair.api.service.board;
 
+import com.repair.api.common.ResultResponseDto;
 import com.repair.api.dto.request.board.BoardDetailRequestDto;
+import com.repair.api.dto.request.board.BoardModifyRequestDto;
 import com.repair.api.dto.request.board.BoardSelectRequestDto;
 import com.repair.api.dto.request.board.BoardWriteRequestDto;
 import com.repair.api.dto.response.board.BoardDetailResponseDto;
@@ -15,4 +17,5 @@ public interface BoardService {
     Page<BoardListResponseDto> list(Pageable pageable);
     Optional<BoardDetailResponseDto> detail(BoardDetailRequestDto boardDetailRequestDto);
     Page<BoardListResponseDto> find(BoardSelectRequestDto boardSelectRequestDto, Pageable pageable);
+    Optional<ResultResponseDto> modify(BoardModifyRequestDto boardModifyRequestDto);
 }

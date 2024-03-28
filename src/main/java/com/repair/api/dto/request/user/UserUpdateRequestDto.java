@@ -4,7 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class UserUpdateRequestDto {
-    private String id;
+    private Long userId;
     private String name;
+    private String phone;
     private String password;
 }

@@ -4,6 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class UserDeleteRequestDto {
-    private String id;
-    private String password;
+    private Long userId;
 }
