@@ -14,6 +14,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
             "from Board b join b.user u")
     Page<BoardListResponseDto> findAllBoardList(Pageable pageable);
 
-    @Query("select b.createAt as createAt, b.title as title, u.name as userName from Board b join b.user u where b.title like %:keyword%")
+    @Query("select new com.repair.api.dto.response.board.BoardListResponseDto(b.createAt, b.title, u.name) " +
+            "from Board b join b.user u " +
+            "where b.title like %:keyword%")
     Page<BoardListResponseDto> findByTitleContaining(@Param("keyword") String keyword, Pageable pageable);
 }

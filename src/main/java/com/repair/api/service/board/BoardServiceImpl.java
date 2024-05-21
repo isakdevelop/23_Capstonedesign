@@ -1,10 +1,10 @@
 package com.repair.api.service.board;
 
 import com.repair.api.common.ResultResponseDto;
-import com.repair.api.dto.request.board.BoardDetailRequestDto;
 import com.repair.api.dto.request.board.BoardModifyRequestDto;
-import com.repair.api.dto.request.board.BoardSelectRequestDto;
 import com.repair.api.dto.request.board.BoardWriteRequestDto;
+import com.repair.api.dto.request.board.BoardDeleteRequestDto;
+import com.repair.api.dto.response.board.BoardDeleteResponseDto;
 import com.repair.api.dto.response.board.BoardDetailResponseDto;
 import com.repair.api.dto.response.board.BoardListResponseDto;
 import com.repair.api.dto.response.board.BoardWriteResponseDto;
@@ -35,7 +35,7 @@ public class BoardServiceImpl implements BoardService{
                 .build();
 
         boardRepository.save(board);
-        return new BoardWriteResponseDto(board.getId(), "등록 성공");
+        return new BoardWriteResponseDto(200, "등록 성공");
     }
 
     @Override
@@ -45,8 +45,8 @@ public class BoardServiceImpl implements BoardService{
 
     @Transactional
     @Override
-    public Optional<BoardDetailResponseDto> detail(BoardDetailRequestDto boardDetailRequestDto) {
-        Optional<Board> findUser = boardRepository.findById(boardDetailRequestDto.getId());
+    public Optional<BoardDetailResponseDto> detail(Long boardId) {
+        Optional<Board> findUser = boardRepository.findById(boardId);
 
         if (findUser.isEmpty()) {
             return Optional.empty();
@@ -58,26 +58,32 @@ public class BoardServiceImpl implements BoardService{
 
     @Transactional
     @Override
-    public Page<BoardListResponseDto> find(BoardSelectRequestDto boardSelectRequestDto, Pageable pageable) {
-        String keyword = boardSelectRequestDto.getKeyword();
-        return boardRepository.findByTitleContaining(keyword, pageable);
+    public Page<BoardListResponseDto> find(String title, Pageable pageable) {
+        return boardRepository.findByTitleContaining(title, pageable);
     }
 
     @Override
+    @Transactional
     public Optional<ResultResponseDto> modify(BoardModifyRequestDto boardModifyRequestDto) {
         Optional<Board> optionalBoard = boardRepository.findById(boardModifyRequestDto.getBoardId());
 
         if (optionalBoard.isEmpty()) {
-            return Optional.of(new ResultResponseDto(0, "해당 아이디에 존재하는 글이 없습니다."));
+            return Optional.of(new ResultResponseDto(404, "해당 아이디에 존재하는 글이 없습니다."));
         } else {
             Board myBoard = optionalBoard.get();
 
             if (myBoard.getPassword().equals(boardModifyRequestDto.getPassword())) {
                 myBoard.update(boardModifyRequestDto.getAfterTitle(), boardModifyRequestDto.getAfterContent());
-                return Optional.of(new ResultResponseDto(1, "성공적으로 수행하였습니다."));
+                return Optional.of(new ResultResponseDto(200, "성공적으로 수행하였습니다."));
             } else {
-                return Optional.of(new ResultResponseDto(0, "비밀번호가 일치하지 않습니다."));
+                return Optional.of(new ResultResponseDto(404, "비밀번호가 일치하지 않습니다."));
             }
         }
+    }
+
+    @Override
+    public BoardDeleteResponseDto delete(BoardDeleteRequestDto boardDeleteRequestDto) {
+        boardRepository.deleteById(boardDeleteRequestDto.getBoardId());
+        return new BoardDeleteResponseDto(200, "삭제 성공");
     }
 }

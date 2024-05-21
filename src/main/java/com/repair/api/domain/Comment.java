@@ -42,7 +42,7 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "parentComment_id")
     private Comment parentComment;
 
-    public void modify(String comment) {
+    public void updateComment(String comment) {
         this.comment = comment;
     }
 

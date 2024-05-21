@@ -26,14 +26,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     private final SimpleMailMessage simpleMailMessage;
 
-    @Transactional
     @Override
     public ResultResponseDto signUp(UserSignupRequestDto userSignupRequestDto) {
         User user = User.builder()
@@ -46,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
         if (userRepository.findByEmail(userSignupRequestDto.getEmail()).isEmpty()) {
             userRepository.save(user);
-            return new ResultResponseDto(1, "회원가입에 성공하셨습니다.");
+            return new ResultResponseDto(200, "회원가입에 성공하셨습니다.");
         } else {
             throw new RepairException(Error.ID_CONFLICT.getStatus(), Error.ID_CONFLICT.getMessage());
         }
@@ -66,8 +64,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Transactional
     @Override
+    @Transactional
     public ResultResponseDto passwordUpdate(UserPasswordChangeRequestDto userPasswordChangeRequestDto) {
         User user = userRepository.findById(userPasswordChangeRequestDto.getUserId())
                 .orElseThrow(() -> new RepairException(Error.ID_NOT_FOUND.getStatus(), Error.ID_NOT_FOUND.getMessage()));
@@ -80,8 +78,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Transactional
     @Override
+    @Transactional
     public ResultResponseDto updateUser(UserUpdateRequestDto userUpdateRequestDto) {
         User user = userRepository.findById(userUpdateRequestDto.getUserId())
                 .orElseThrow(() -> new RepairException(Error.ID_NOT_FOUND.getStatus(), Error.ID_NOT_FOUND.getMessage()));
@@ -94,8 +92,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Transactional
     @Override
+    @Transactional
     public ResultResponseDto sendMail(UserMailRequestDto userMailRequestDto) {
         Optional<User> optionalUser = userRepository.findByEmail(userMailRequestDto.getEmail());
 
@@ -117,7 +115,6 @@ public class UserServiceImpl implements UserService {
         return new ResultResponseDto(1, "메일 발송이 완료되었습니다.");
     }
 
-    @Transactional
     @Override
     public ResultResponseDto deleteUser(UserDeleteRequestDto userDeleteRequestDto) {
         User user = userRepository.findById(userDeleteRequestDto.getUserId())

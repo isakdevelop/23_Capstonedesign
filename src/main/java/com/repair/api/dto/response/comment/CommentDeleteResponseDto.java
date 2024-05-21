@@ -1,13 +1,13 @@
-package com.repair.api.dto.response.board;
+package com.repair.api.dto.response.comment;
 
 import lombok.Getter;
 
 @Getter
-public class BoardWriteResponseDto {
+public class CommentDeleteResponseDto {
     private int status;
     private String message;
 
-    public BoardWriteResponseDto(int status, String message) {
+    public CommentDeleteResponseDto(int status, String message) {
         this.status = status;
         this.message = message;
     }

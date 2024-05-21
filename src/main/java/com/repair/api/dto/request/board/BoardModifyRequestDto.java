@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class BoardModifyRequestDto {
-    private Long BoardId;
+    private Long boardId;
     private String afterTitle;
     private String afterContent;
     private String password;

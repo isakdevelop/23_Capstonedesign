@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,32 +43,37 @@ public class RepairCenterServiceImpl implements RepairCenterService{
                 .build();
 
         repairCenterRepository.save(repairCenter);
-        return new RepairCenterWriteResponseDto(1, "입력 성공");
+        return new RepairCenterWriteResponseDto(200, "입력 성공");
     }
 
     @Override
+    @Transactional
     public ResultResponseDto update(RepairCenterUpdateRequestDto repairCenterUpdateRequestDto) {
-        RepairCenter updateRepairCenter = getRepairCenterOrThrow(repairCenterUpdateRequestDto.getRepairCenterId(), repairCenterUpdateRequestDto.getUserId());
+        RepairCenter updateRepairCenter =
+                getRepairCenterOrThrow(repairCenterUpdateRequestDto.getRepairCenterId(), repairCenterUpdateRequestDto.getUserId());
 
         updateRepairCenter.updateRepairCenter(repairCenterUpdateRequestDto.getName(),
                 repairCenterUpdateRequestDto.getAddress(), repairCenterUpdateRequestDto.getTell(),
                 carBrand(repairCenterUpdateRequestDto.getType()));
 
-        return new ResultResponseDto(1, "수리점 정보에 대한 수정이 완료되었습니다.");
+        return new ResultResponseDto(200, "수리점 정보에 대한 수정이 완료되었습니다.");
     }
 
     @Override
     public ResultResponseDto delete(RepairCenterDeleteRequestDto repairCenterDeleteRequestDto) {
-        RepairCenter deleteRepairCenter = getRepairCenterOrThrow(repairCenterDeleteRequestDto.getRepairCenterId(), repairCenterDeleteRequestDto.getUserId());
+        RepairCenter deleteRepairCenter = getRepairCenterOrThrow(repairCenterDeleteRequestDto.getRepairCenterId(),
+                repairCenterDeleteRequestDto.getUserId());
 
         repairCenterRepository.deleteById(deleteRepairCenter.getId());
 
-        return new ResultResponseDto(1, "수리점 정보에 대한 삭제가 완료되었습니다.");
+        return new ResultResponseDto(200, "수리점 정보에 대한 삭제가 완료되었습니다.");
     }
 
     private RepairCenter getRepairCenterOrThrow(Long repairCenterId, Long userId) {
         Optional<User> adminUser = userRepository.findById(userId);
-        if (adminUser.isEmpty() || adminUser.get().getRole().equals(Role.ADMIN)) {
+        System.out.println(adminUser.get().getRole());
+
+        if (adminUser.get().getRole().equals("ROLE_USER")) {
             throw new RepairException(Error.ADMIN_FORBIDDEN.getStatus(), Error.ADMIN_FORBIDDEN.getMessage());
         }
 

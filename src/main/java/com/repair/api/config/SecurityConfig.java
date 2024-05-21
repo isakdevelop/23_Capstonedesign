@@ -35,13 +35,7 @@ public class SecurityConfig {
         .csrf(AbstractHttpConfigurer::disable)
         .formLogin(AbstractHttpConfigurer::disable)
         .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class)
-        .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/user/login", "/user/signup").permitAll()
-                        .requestMatchers("/user/mail", "/user/delete", "/user/update", "/user/modifyPW", "/repairCenter/list", "/board/**")
-                                .hasAnyRole(String.valueOf(USER), String.valueOf(ADMIN))
-                        .requestMatchers("/repairCenter/write", "/repairCenter/update", "repairCenter/delete")
-                                .hasRole(String.valueOf(ADMIN))
-                        .anyRequest().permitAll());
+        ;
 
         return http.build();
     }

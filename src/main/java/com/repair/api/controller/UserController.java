@@ -29,12 +29,12 @@ public class UserController {
         return userService.login(userLoginRequestDto);
     }
 
-    @PostMapping("modifyPW")
+    @PatchMapping("/modifyPW")
     public ResultResponseDto passwordChange(@RequestBody UserPasswordChangeRequestDto userPasswordChangeRequestDto) {
         return userService.passwordUpdate(userPasswordChangeRequestDto);
     }
 
-    @PostMapping("/update")
+    @PatchMapping("/update")
     public ResultResponseDto update(@RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         return userService.updateUser(userUpdateRequestDto);
     }

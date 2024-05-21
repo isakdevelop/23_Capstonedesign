@@ -4,11 +4,11 @@ import lombok.Getter;
 
 @Getter
 public class CommentWriteResponseDto {
-    private Long id;
+    private int status;
     private String message;
 
-    public CommentWriteResponseDto(Long id, String message) {
-        this.id = id;
+    public CommentWriteResponseDto(int status, String message) {
+        this.status = status;
         this.message = message;
     }
 }
